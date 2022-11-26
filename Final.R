@@ -16,22 +16,8 @@ mean(Wage$year)
 mean(Wage$wage)
 #checking the mean for age, year and wage.
 
-p1 <- ggplot(Wage, aes(x=health_ins.f, y=wage)) + 
-  geom_boxplot()
-p1
-
-p2 <- ggplot(Wage, aes(x=maritl.f, y=wage)) + 
-  geom_boxplot()
-p2
-
-p3 <- ggplot(Wage, aes(x=jobclass.f, y=wage)) + 
-  geom_boxplot()
-p3
-#boxplot for health_ins vs wage, maritl va wage and jobclass vs wage
-
+#change dummy variables to .factor for later process.
 Wage$health_ins.f <- as.factor(Wage$health_ins)
-
-Wage$health_ins = factor(Wage$health_ins, levels = c("No","Yes"))
 
 print(class(Wage$health_ins.f))
 
@@ -43,5 +29,23 @@ Wage$maritl.f <- as.factor(Wage$maritl)
 
 print(class(Wage$maritl.f))
 
+
+
+p1 <- ggplot(Wage, aes(x=health_ins.f, y=wage)) + 
+  geom_boxplot()
+p1
+
+p2 <- ggplot(Wage, aes(x=maritl.f, y=wage)) + 
+  geom_boxplot()
+p2
+
+p3 <- ggplot(Wage, aes(x=jobclass.f, y=wage)) + 
+  geom_boxplot()
+p3
+#boxplots for health_ins vs wage, maritl va wage and jobclass vs wage
+
+
+
 lmACS <- lm(wage ~ age + maritl.f, data = Wage)
 print(summary(lmACS))
+
