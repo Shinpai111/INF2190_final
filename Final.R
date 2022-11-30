@@ -56,6 +56,9 @@ p5
 lmACS <- lm(wage ~ age + maritl.f + health_ins.f + jobclass.f, data = Wage)
 print(summary(lmACS))
 
+lmACS1 <- glm(health_ins ~ age + maritl.f + wage + jobclass.f, data = Wage)
+print(summary(lmACS1))
+
 ggplot(Wage, aes(x = age, y = wage))+ geom_point() + stat_smooth()
 
 ggplot(Wage, aes(age, wage))+ geom_point() + stat_smooth(method = lm)
@@ -94,8 +97,18 @@ Wage$race.f <- as.factor(Wage$race)
 print(class(Wage$race.f))
 
 
+
+newdata = as.numeric(as.factor(Wage$health_ins))
+newdata
+for(i in 1:length(newdata)){
+  if (newdata[i] == 2){
+    newdata[i] = 0
+  }
+}
+newdata
+newdata.f = as.factor(newdata)
 #Logistic regression for health_ins vs jobclass, income, and race.
-fvLogit <- glm(health_ins.f ~ jobclass.f + wage + race.f, data = Wage, family = binomial)
+fvLogit <- glm(newdata.f ~ jobclass.f + wage + race.f + age, data = Wage, family = binomial)
 summary(fvLogit)
 
 
@@ -125,5 +138,6 @@ summary(fvLogit)
 #AIC: 3300.9
 
 #Number of Fisher Scoring iterations: 5
+
 
 
