@@ -1,11 +1,13 @@
-
 library("ggplot2")
-
+library(tidyverse)
+install.packages("ggpubr")
+library("ggpubr")
+install.packages("ISLR2")
 range(Wage$age)
 range(Wage$year)
 range(Wage$wage)
 #checking the maximum and minimum value for age, year and wage.
-
+Wage
 median(Wage$age)
 median(Wage$year)
 median(Wage$wage)
@@ -43,16 +45,20 @@ p3 <- ggplot(Wage, aes(x=jobclass.f, y=wage)) +
   geom_boxplot()
 p3
 
-p4 <- ggplot(Wage, aes(x=sex.f, y=wage)) + 
+p4 <- ggplot(Wage, aes(x=age, y=wage)) + 
   geom_boxplot()
 p4
 
-
+p5 <- ggplot(Wage, aes(x=wage, y=health_ins))+geom_point()
+p5
 #linear regression for wage vs age, control maritl, health_ins and jobclass
 
 lmACS <- lm(wage ~ age + maritl.f + health_ins.f + jobclass.f, data = Wage)
 print(summary(lmACS))
 
+ggplot(Wage, aes(x = age, y = wage))+ geom_point() + stat_smooth()
+
+ggplot(Wage, aes(age, wage))+ geom_point() + stat_smooth(method = lm)
 #Call:
 #lm(formula = wage ~ age + maritl.f + health_ins.f + jobclass.f, 
 #   data = Wage)
@@ -91,6 +97,7 @@ print(class(Wage$race.f))
 #Logistic regression for health_ins vs jobclass, income, and race.
 fvLogit <- glm(health_ins.f ~ jobclass.f + wage + race.f, data = Wage, family = binomial)
 summary(fvLogit)
+
 
 #Call:
 #glm(formula = health_ins.f ~ jobclass.f + wage + race.f, family = binomial, 
