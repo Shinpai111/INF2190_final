@@ -111,6 +111,11 @@ newdata.f = as.factor(newdata)
 fvLogit <- glm(newdata.f ~ jobclass.f + wage + race.f + age, data = Wage, family = binomial)
 summary(fvLogit)
 
+fvLogit1 <- glm(newdata.f ~ wage, data = Wage, family = binomial)
+summary(fvLogit1)
+
+ggplot(Wage, aes(x=wage,y=newdata))+geom_point()+ stat_smooth(method="glm", color = "green", se = FALSE, method.args = list(family=binomial))
+
 
 #Call:
 #glm(formula = health_ins.f ~ jobclass.f + wage + race.f, family = binomial, 
@@ -138,6 +143,4 @@ summary(fvLogit)
 #AIC: 3300.9
 
 #Number of Fisher Scoring iterations: 5
-
-
 
