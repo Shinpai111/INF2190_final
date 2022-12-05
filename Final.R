@@ -144,3 +144,43 @@ ggplot(Wage, aes(x=wage,y=newdata))+geom_point()+ stat_smooth(method="glm", colo
 
 #Number of Fisher Scoring iterations: 5
 
+library(Hmisc)
+cutWage = cut2(Wage$wage, g=3)
+table(cutWage)
+
+white_yes = 1740 / (1740+740)
+white_no = 740/(1740+740)
+black_yes = 197/(197+96)
+black_no = 96/(197+96)
+asian_yes = 126/(126+64)
+asian_no = 64/(126+64)
+other_yes = 20 / (20+17)
+
+other_no = 17 / (20+17)
+
+t1 = table(Wage$health_ins, Wage$race)
+t2 = table(Wage$health_ins, Wage$jobclass)
+
+cat_var <- c( white_yes, white_no,black_yes, black_no, asian_yes, asian_no, other_yes, other_no)
+labels = c( "white_yes", "white_no","black_yes", "black_no", "asian_yes", "asian_no", "other_yes", "other_no")
+pie(cat_var, labels, main = ("race and insurance pie chart"), coll = rainbow(length(cat_var)))
+
+
+# Create a table from the data
+cat <- table(cat_var)
+
+# Pie
+pie(cat,
+    col = hcl.colors(length(cat), "BluYl"))
+
+
+qplot(wage, color = health_ins, data = Wage, geom="density")
+qplot(age, color = health_ins, data = Wage, geom="density")
+qplot(race, color = health_ins, data = Wage, geom="density")
+qplot(jobclass, color = health_ins, data = Wage, geom="density")
+
+pl = qplot(cutWage, age, data = Wage, fill = cutWage, geom =c("boxplot"))
+pl
+
+
+
