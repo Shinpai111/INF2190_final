@@ -183,4 +183,14 @@ pl = qplot(cutWage, age, data = Wage, fill = cutWage, geom =c("boxplot"))
 pl
 
 
+#T-test for wage/insurance
+#and T-test for age/insurance
+
+af = Wage$wage[newdata == 0]
+af1 = Wage$wage[newdata == 1]
+t.test(af,af1)
+af2 = Wage$age[newdata == 0]
+af3 = Wage$age[newdata == 1]
+t.test(af2,af3)
+
 
