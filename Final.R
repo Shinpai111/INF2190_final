@@ -193,4 +193,6 @@ af2 = Wage$age[newdata == 0]
 af3 = Wage$age[newdata == 1]
 t.test(af2,af3)
 
+fvLogit2 <- glm(newdata.f ~ jobclass.f + wage + race.f + age + maritl.f + education, data = Wage, family = binomial)
+summary(fvLogit2)
 
